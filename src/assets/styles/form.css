@@ -1,0 +1,66 @@
+.container-form {
+  padding-top: 2rem;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-bottom: 20px;
+}
+
+.container-form label {
+  margin-top: 1.4rem;
+  margin-bottom: 1.4rem;
+}
+
+.container-form__content {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-form__form {
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.container-form__form label {
+  font-size: 1.7rem;
+}
+
+.container-trix {
+  background-color: var(--color-white);
+  width: 100%;
+  font-size: 1.3rem;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+
+.knowledge-list-addproject {
+  width: 100%;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.knowledge-list-addproject li {
+  background-color: var(--color-white);
+  width: 100%;
+  padding: 11px 5px;
+  list-style:none;
+  font-size: 1.4rem;
+  border: 2px solid var(--color-black-theme1);
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  cursor: pointer;
+}
+
+.knowledge-list-addproject input {
+  display: none;
+}

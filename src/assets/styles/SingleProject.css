@@ -1,0 +1,28 @@
+.container-single-project {
+  width: 80%;
+  margin: auto;
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr); */
+  /* border: 1px solid red; */
+  padding-bottom: 4rem;
+}
+
+.single-project__title {
+  font-size: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 1.4rem;
+}
+
+.single-project_technologies {
+  display: flex;
+  margin-bottom: 1.4rem;
+  font-style: italic;
+}
+
+.single-project_technologies .item-tech {
+  margin-right: 1rem;
+}
+
+.container-single-project img {
+  width: 100%;
+}

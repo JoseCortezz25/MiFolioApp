@@ -1,3 +1,9 @@
+# Distributed Systems Project Client
+
+![](screenshot.png)
+
+Mi Folio is an educational project for the distributed systems course created with Express and Handlebars.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

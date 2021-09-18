@@ -1,0 +1,32 @@
+.card-project {
+  width: 100%;
+  /* width: 33.3%; */
+  
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.card-project__image {
+  width: 100%;
+}
+
+.card-project__image img {
+  width: 100%;
+}
+
+.card-project__body {
+  padding: 15px 10px 25px 10px;
+}
+
+.card-project__technologies {
+  width: 100%;
+  display: flex;
+}
+
+.card-project__technologies .item-tech {
+  margin-right: 10px;
+}
+
+.card-project-link {
+  text-decoration: none;
+  color: var(--color-black);
+}
