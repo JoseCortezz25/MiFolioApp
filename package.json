@@ -1,7 +1,7 @@
 {
   "name": "dsp-mi-folio",
   "version": "0.1.0",
-  "homepage": "https://josecortezz25.github.io/distributed-systems-project-client/",
+  "homepage": "https://josecortezz25.github.io/distributed-systems-project-client",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
