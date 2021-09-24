@@ -1,39 +1,20 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import Trix from 'trix'
-import { ReactTrixRTEInput } from 'react-trix-rte';
+import { ReactTrixRTEInput } from 'react-trix-rte'
+import { arrayOfSkills } from '../utils/helpers'
 import '../assets/styles/form.css'
 
-const arrayOfSkills = [
-  { id: 1, tech: 'Html5' },
-  { id: 2, tech: 'Css3' },
-  { id: 3, tech: 'Python' },
-  { id: 4, tech: 'Java' },
-  { id: 5, tech: 'Javascript' },
-  { id: 6, tech: 'Jquery' },
-  { id: 7, tech: 'Laravel' },
-  { id: 8, tech: 'R' },
-  { id: 9, tech: 'Apollo' },
-  { id: 10, tech: 'Graphql' },
-  { id: 11, tech: 'Typescript' },
-  { id: 12, tech: 'Mongoose' },
-  { id: 13, tech: 'Sequelize' },
-  { id: 14, tech: 'SQL' },
-  { id: 15, tech: 'MVC' },
-  { id: 16, tech: 'WordPress' },
-  { id: 17, tech: 'Angular' },
-  { id: 18, tech: 'Node' },
-  { id: 19, tech: 'Express' },
-  { id: 20, tech: 'Php' }
-];
+
+const technologies = new Set()
 
 const FormAddProject = () => {
   const [name, setName] = useState('')
   const [image, setImage] = useState('')
   const [description, setDescription] = useState('')
-  const [skill, setSkill] = useState(
-    // new Array()
-  )
+  const [technology, setTechnology] = useState()
+  let history = useHistory()
 
   const handleImage = e => {
     setImage(e.target.files[0])
@@ -46,10 +27,19 @@ const FormAddProject = () => {
   }
 
   const handleDescription = e => {
-    console.log(skill);
-    
-    // console.log(skills);
-    // setDescription(...skill, e.target.value)
+    console.log(e.target.value);
+    setDescription(e.target.value)
+  }
+
+  const handleTechnology = (e) => {
+    if (technologies.has(e.target.value)) {
+      technologies.delete(e.target.value)
+      // e.target.classList.remove('active')
+    } else {
+      technologies.add(e.target.value)
+      // e.target.classList.add('active')
+    }
+    setTechnology(Array.from(technologies))
   }
 
   const handleSendData = async (e) => {
@@ -58,47 +48,15 @@ const FormAddProject = () => {
     formData.append('name', name)
     formData.append('description', description)
     formData.append('image', image)
-    console.log(formData);
+    formData.append('technologies', technology)
     await fetch('http://localhost:5000/api/add-project', {
       method: 'POST',
       body: formData
-    })
-  }
-
-  const technologies = new Set()
-  // const technologiesContainer = document.querySelector('.knowledge-list-addproject')
-  // useEffect(() => {
-  //   document.addEventListener('DOMContentLoaded', () => {
-  //     if (technologiesContainer) {
-  //       technologiesContainer.addEventListener('click', addTechnologies)
-  //       console.log('technologies cargados')
-  //     }
-  //   })
-
-  const addTechnologies = e => {
-    console.log(e.target.innerText);
-    // if (e.target.tagName === 'LI') {
-    //   if (e.target.classList.contains('active')) {
-    //     technologies.delete(e.target.textContent)
-    //     e.target.classList.remove('active')
-    //   } else {
-    //     technologies.add(e.target.textContent)
-    //     e.target.classList.add('active')
-    //   }
-    // }
-    // console.log(technologies);
-    // const technologiesArray = [...technologies]
-    // document.querySelector("#technologies").value = technologiesArray
-  }
-
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    setSkill(
-      ...skill,
-      e.target.value
-    )
-    console.log("skill");
-    console.log(skill);
+    }).then(res => res.json())
+      .then(data => {
+        history.push(`/project/${data.url}`)
+      })
+    
   }
 
   return (
@@ -125,26 +83,29 @@ const FormAddProject = () => {
           <ReactTrixRTEInput name="description" onChange={handleDescription} />
 
           <label htmlFor="">Technologies used in the project</label>
-          <div className="knowledge-list-addproject" value={skill}>
-            {arrayOfSkills.map(skill => {
+          <div className="knowledge-list-addproject" value={technology}>
+            {arrayOfSkills.map(technology => {
               return (
-                // <input type="text" key={skill} onChange={handleChange}>{skill}</input>
-                <li key={skill.id}>
-                  <label htmlFor={`custom-checkbox-${skill.id}`}>{skill.tech}</label>
-                  <input
-                    type="checkbox"
-                    id={`custom-checkbox-${skill.id}`}
-                    name={skill.tech}
-                    value={skill.tech}
-                    onChange={handleChange}
-                  />
-                </li>
+                <>
+                  <li key={technology.id} class="tag-skill" htmlFor={`custom-checkbox-${technology.id}`}>
+                    <input
+                      type="checkbox"
+                      id={`custom-checkbox-${technology.id}`}
+                      class="custom-checkbox"
+                      name={`checkbox-${technology.id}`}
+                      value={technology.tech}
+                      onChange={handleTechnology}
+                    />
+                    <label key={technology.id + 1} htmlFor={`custom-checkbox-${technology.id}`}>{technology.tech}</label>
+                  </li>
+                </>
               )
             })}
           </div>
           <br />
 
-          <label htmlFor="">Upload an image of the project</label>
+          <label htmlFor="image">Upload an image of the project</label>
+          <br />
           <input
             type="file"
             name="image"
@@ -154,7 +115,6 @@ const FormAddProject = () => {
           ></input>
 
           <label htmlFor="inputGroupFile01" className="custom-file-label">Choose file</label>
-
           <input type="hidden" name="technologies" id="technologies"></input>
           <input type="submit" value="Add project" className="btn-standard btn-form"></input>
         </form>

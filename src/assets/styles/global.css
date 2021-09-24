@@ -74,7 +74,14 @@ body {
 .title-section-form {
   width: 50%;
 }
+
 .title-section-form h2{
   font-size: 2.4em;
+  color: var(--color-white);
+}
+
+.active {
+  display: flex;
+  background-color: var(--color-black-theme1) !important;
   color: var(--color-white);
 }

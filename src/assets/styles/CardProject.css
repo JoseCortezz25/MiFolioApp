@@ -20,6 +20,7 @@
 .card-project__technologies {
   width: 100%;
   display: flex;
+  flex-flow: wrap;
 }
 
 .card-project__technologies .item-tech {

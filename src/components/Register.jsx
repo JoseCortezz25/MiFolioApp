@@ -1,39 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { arrayOfSkills } from '../utils/helpers'
 import '../assets/styles/Register.css'
 
-const arrayOfSkills = ['Html5', 'Css3', 'Python', 'Java', 'Javascript',
-'Jquery', 'Laravel', 'R', 'Apollo', 'Graphql', 'Typescript',
-'Mongoose', 'Sequelize', 'SQL', 'MVC', 'WordPress', 'Angular',
-'Node', 'Express', 'Php'
-];
 
-document.addEventListener('DOMContentLoaded', () => {
-  const skills = document.querySelector('.knowledge-list')
-
-  if (skills) {
-    skills.addEventListener('click', addSkills)
-    console.log('skills cargados')
-  }
-})
-
-const skills = new Set()
-const addSkills = e => {
-  if (e.target.tagName === 'LI') {
-    if (e.target.classList.contains('active')) {
-      skills.delete(e.target.textContent);
-      e.target.classList.remove('active');
-    } else {
-      skills.add(e.target.textContent);
-      e.target.classList.add('active');
-    }
-  }
-  // console.log(skills);
-  const skillsArray = [...skills];
-  document.querySelector("#skills").value = skillsArray;
-}
 
 const Register = () => {
+
+  // const handleTechnology = (e) => {
+  //   if (technologies.has(e.target.value)) {
+  //     technologies.delete(e.target.value)
+  //     // e.target.classList.remove('active')
+  //   } else {
+  //     technologies.add(e.target.value)
+  //     // e.target.classList.add('active')
+  //   }
+  //   setTechnology(Array.from(technologies))
+  // }
+
   return (
     <section className="container-register">
       <div className="section-register">
@@ -60,13 +44,25 @@ const Register = () => {
             <input type="text" className="input-control" id="profession" placeholder="Enter your profession"></input>
 
             <label for="profession">Skills</label>
-            <div className="knowledge-list">
-              {arrayOfSkills.map(skill => {
-                return (
-                  <li>{skill}</li>
-                )
-              })}
-            </div>
+            <div className="knowledge-list-addproject" >
+            {arrayOfSkills.map(technology => {
+              return (
+                <>
+                  <li key={technology.id} class="tag-skill" htmlFor={`custom-checkbox-${technology.id}`}>
+                    <input
+                      type="checkbox"
+                      id={`custom-checkbox-${technology.id}`}
+                      class="custom-checkbox"
+                      name={`checkbox-${technology.id}`}
+                      value={technology.tech}
+                      // onChange={handleTechnology}
+                    />
+                    <label key={technology.id + 1} htmlFor={`custom-checkbox-${technology.id}`}>{technology.tech}</label>
+                  </li>
+                </>
+              )
+            })}
+          </div>
             <div className="campo centrar-horizontal">
               <input type="hidden" name="skills" id="skills"></input>
             </div>

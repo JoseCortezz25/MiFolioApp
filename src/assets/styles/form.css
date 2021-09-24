@@ -44,23 +44,41 @@
   width: 100%;
   margin-top: 10px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 }
 
 .knowledge-list-addproject li {
-  background-color: var(--color-white);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  /* background-color: var(--color-white);
   width: 100%;
-  padding: 11px 5px;
-  list-style:none;
-  font-size: 1.4rem;
+  padding: 0px 5px; */
+  /* font-size: 1.4rem;
   border: 2px solid var(--color-black-theme1);
   display: flex;
   justify-content: center;
   align-self: center;
-  cursor: pointer;
+  cursor: pointer; */
 }
 
-.knowledge-list-addproject input {
-  display: none;
+.tag-skill {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+
+.custom-checkbox {
+  width:  18px;
+  height: 18px;
+}
+
+.knowledge-list-addproject input.active{
+  /* display: none; */
+  background-color: aqua;
+  width:  18px;
+  height: 18px;
 }

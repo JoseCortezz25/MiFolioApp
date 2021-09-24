@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import CoverImage from './CoverImage'
 import CardProject from './CardProject'
 import '../assets/styles/Feed.css'
@@ -18,7 +18,8 @@ const Feed = () => {
 
   }, [])
 
-  return (
+  return projects ? (
+    
     <section className="container-feed">
       <CoverImage />
       <div className="feed-projects">
@@ -26,14 +27,16 @@ const Feed = () => {
           <Masonry gutter="3rem">
             {projects.map(project => {
               return (
-                <CardProject key={project._id} project={project}/>
+                <CardProject key={project._id} project={project} />
               )
             })}
           </Masonry>
         </ResponsiveMasonry>
       </div>
 
-    </section>
+    </section> 
+  ) : (
+    <div>No exite productos :(</div>
   )
 }
 
