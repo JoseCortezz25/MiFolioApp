@@ -22,6 +22,31 @@ export const arrayOfSkills = [
   { id: 21, tech: 'React' },
 ]
 
-// export {
-//   arrayOfSkills
-// }
+const TOKEN = "token";
+const USER = "user";
+
+export const setToken = (token) => {
+  localStorage.setItem(TOKEN, token)
+}
+
+export const setCurrentUser = (user) => {
+  localStorage.setItem(USER, user)
+}
+
+export const getToken = () => {
+  return localStorage.getItem(TOKEN)
+}
+
+export const getCurrentUser = () => {
+  return localStorage.getItem(USER)
+}
+
+export const deleteToken = () => {
+  localStorage.removeItem(TOKEN)
+  localStorage.removeItem(USER)
+  localStorage.clear()
+}
+
+export const validateUser = (idOtherUser, idCurrentUser) => {
+  return idOtherUser === idCurrentUser
+}

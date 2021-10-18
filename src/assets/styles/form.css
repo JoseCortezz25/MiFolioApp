@@ -1,6 +1,6 @@
 .container-form {
   padding-top: 2rem;
-  width: 100%;
+  max-width: 80%;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -11,6 +11,7 @@
 .container-form label {
   margin-top: 1.4rem;
   margin-bottom: 1.4rem;
+  display: block;
 }
 
 .container-form__content {
@@ -43,9 +44,12 @@
 .knowledge-list-addproject {
   width: 100%;
   margin-top: 10px;
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 20px;
+  /* display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+  gap: 10px; */
 }
 
 .knowledge-list-addproject li {
@@ -74,6 +78,7 @@
 .custom-checkbox {
   width:  18px;
   height: 18px;
+  margin-right: 10px;
 }
 
 .knowledge-list-addproject input.active{
@@ -81,4 +86,25 @@
   background-color: aqua;
   width:  18px;
   height: 18px;
+}
+
+/* .custom-file-input::file-upload-button { */
+.custom-file-input::-webkit-file-upload-button, 
+.custom-file-input::file-selector-button {
+  background-color: var(--color-white);
+  padding: var(--padding-buttons);
+  transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  border:none;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--color-black-theme1);
+  border: 2px solid var(--color-black-theme1);
+}
+.custom-file-input::-webkit-file-upload-button:hover {
+  background-color: var(--color-black-theme1);
+  padding: var(--padding-buttons);
+  color: var(--color-white);
+  box-shadow: -3px -3px 0px 0px var(--color-black-theme1);
 }

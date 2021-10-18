@@ -12,11 +12,9 @@ const CardProject = ({
     url,
     image_project
   } }) => {
-  console.log(image_project?.path);
-
 
   return (
-    <Link to={"project/" + url} className="card-project-link">
+    <Link to={"/project/" + url} className="card-project-link">
       <article className="card-project">
         <div className="card-project__image">
           <img src={image_project?.imageURL} alt={name} />

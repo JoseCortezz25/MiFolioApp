@@ -39,15 +39,22 @@ body {
   --color-brown-theme3: #4A403A;
   --color-maroon-theme3: #A45D5D;
   --color-orange-theme3: #FFC069;
-  --color-white-theme3: #EFEFEF;
+  --color-white-theme3: #fafafa;
 
   --color-white: #fff;
   --color-gray: #F5F6FA;
   --color-black: #000;
   --color-blue: #0070f3;
+  --color-blue-light: #3973aa;
 
   --color-profile-name: #5C6C79;
   --color-text-default: #51525D;
+  --color-text-profession: #8e8e8e;
+  --color-text-fullname: #262626;
+  --color-border-gray: #dbdbdb;
+  --color-border-dark-gray: #929292;
+
+  --padding-buttons: 1rem 2rem;
 }
 
 /* *::selection {
@@ -84,4 +91,8 @@ body {
   display: flex;
   background-color: var(--color-black-theme1) !important;
   color: var(--color-white);
+}
+
+.title-principal-form {
+  text-align: center;
 }

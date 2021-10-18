@@ -9,14 +9,18 @@ import Feed from '../components/Feed'
 import Profile from '../components/Profile'
 import SingleProject from '../components/SingleProject'
 import FormAddProject from '../components/FormAddProject'
+import FormUpdateProject from '../components/FormUpdateProject'
+import FormUpdateUser from '../components/FormUpdateUser'
+import PageNotFound from '../components/PageNotFound'
+import ProtectedRoute from '../components/ProtectedRoute'
 
 const Route = ({ component: Component, layout: Layout, ...rest }) => {
   return (
     <DefaultRoute {...rest} render={props => (
-        <Layout>
-          <Component {...props} />
-        </Layout>
-      )}
+      <Layout>
+        <Component {...props} />
+      </Layout>
+    )}
     />
   )
 }
@@ -26,14 +30,18 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={Home} layout={EmptyLayouts} />
-        <Route exact path="/register" component={Register}  layout={EmptyLayouts}/>
-        <Route exact path="/login" component={Login} layout={EmptyLayouts}/>
+        <Route exact path="/register" component={Register} layout={EmptyLayouts} />
+        <Route exact path="/login" component={Login} layout={EmptyLayouts} />
 
-        <Route exact path="/feed" component={Feed} layout={MainLayouts}/>
-        <Route exact path="/profile" component={Profile} layout={MainLayouts}/>
+        <ProtectedRoute exact path="/feed" component={Feed} layout={MainLayouts} />
+        <Route exact path="/user/:username" component={Profile} layout={MainLayouts} />
+        <ProtectedRoute path="/update-user/:username" component={FormUpdateUser} layout={MainLayouts} />
 
-        <Route path="/add-project/" component={FormAddProject} layout={MainLayouts}/>
-        <Route path="/project/:url" component={SingleProject} layout={MainLayouts}/>
+        <ProtectedRoute path="/add-project/" component={FormAddProject} layout={MainLayouts} />
+        <ProtectedRoute path="/update-project/:url" component={FormUpdateProject} layout={MainLayouts} />
+        <Route path="/project/:url" component={SingleProject} layout={MainLayouts} />
+
+        <Route component={PageNotFound} layout={EmptyLayouts} />
       </Switch>
     </Router>
   )
