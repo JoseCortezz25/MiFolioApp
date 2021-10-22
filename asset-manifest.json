@@ -1,23 +1,25 @@
 {
   "files": {
-    "main.css": "/distributed-systems-project-client/static/css/main.c313ad63.chunk.css",
-    "main.js": "/distributed-systems-project-client/static/js/main.2ce5b988.chunk.js",
-    "main.js.map": "/distributed-systems-project-client/static/js/main.2ce5b988.chunk.js.map",
-    "runtime-main.js": "/distributed-systems-project-client/static/js/runtime-main.41018e94.js",
-    "runtime-main.js.map": "/distributed-systems-project-client/static/js/runtime-main.41018e94.js.map",
-    "static/js/2.7877e378.chunk.js": "/distributed-systems-project-client/static/js/2.7877e378.chunk.js",
-    "static/js/2.7877e378.chunk.js.map": "/distributed-systems-project-client/static/js/2.7877e378.chunk.js.map",
-    "static/js/3.f2f32d85.chunk.js": "/distributed-systems-project-client/static/js/3.f2f32d85.chunk.js",
-    "static/js/3.f2f32d85.chunk.js.map": "/distributed-systems-project-client/static/js/3.f2f32d85.chunk.js.map",
+    "main.css": "/distributed-systems-project-client/static/css/main.68c25144.chunk.css",
+    "main.js": "/distributed-systems-project-client/static/js/main.45246e86.chunk.js",
+    "main.js.map": "/distributed-systems-project-client/static/js/main.45246e86.chunk.js.map",
+    "runtime-main.js": "/distributed-systems-project-client/static/js/runtime-main.9cdf0b38.js",
+    "runtime-main.js.map": "/distributed-systems-project-client/static/js/runtime-main.9cdf0b38.js.map",
+    "static/js/2.429d8c8f.chunk.js": "/distributed-systems-project-client/static/js/2.429d8c8f.chunk.js",
+    "static/js/2.429d8c8f.chunk.js.map": "/distributed-systems-project-client/static/js/2.429d8c8f.chunk.js.map",
+    "static/js/3.3997dab1.chunk.js": "/distributed-systems-project-client/static/js/3.3997dab1.chunk.js",
+    "static/js/3.3997dab1.chunk.js.map": "/distributed-systems-project-client/static/js/3.3997dab1.chunk.js.map",
     "index.html": "/distributed-systems-project-client/index.html",
-    "static/css/main.c313ad63.chunk.css.map": "/distributed-systems-project-client/static/css/main.c313ad63.chunk.css.map",
-    "static/js/2.7877e378.chunk.js.LICENSE.txt": "/distributed-systems-project-client/static/js/2.7877e378.chunk.js.LICENSE.txt",
+    "static/css/main.68c25144.chunk.css.map": "/distributed-systems-project-client/static/css/main.68c25144.chunk.css.map",
+    "static/js/2.429d8c8f.chunk.js.LICENSE.txt": "/distributed-systems-project-client/static/js/2.429d8c8f.chunk.js.LICENSE.txt",
+    "static/media/icon-feed.f42e7166.svg": "/distributed-systems-project-client/static/media/icon-feed.f42e7166.svg",
+    "static/media/icons-exit.7ebc40c8.svg": "/distributed-systems-project-client/static/media/icons-exit.7ebc40c8.svg",
     "static/media/logo.9828e37b.svg": "/distributed-systems-project-client/static/media/logo.9828e37b.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.41018e94.js",
-    "static/js/2.7877e378.chunk.js",
-    "static/css/main.c313ad63.chunk.css",
-    "static/js/main.2ce5b988.chunk.js"
+    "static/js/runtime-main.9cdf0b38.js",
+    "static/js/2.429d8c8f.chunk.js",
+    "static/css/main.68c25144.chunk.css",
+    "static/js/main.45246e86.chunk.js"
   ]
 }
