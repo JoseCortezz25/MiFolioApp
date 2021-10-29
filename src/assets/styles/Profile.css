@@ -11,10 +11,11 @@
 }
 
 .profile-info {
-display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 25px; 
+  margin-left: 25px;
+  align-items: flex-start; 
 }
 
 .profile-image {
@@ -110,7 +111,22 @@ display: flex;
 }
 
 .box-fullname {
-  /* border: 1px solid red; */
   display: flex;
   align-items: center;
+}
+
+.section-not-resources {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.section-not-resources p {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 2.5rem;
 }

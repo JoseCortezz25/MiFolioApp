@@ -13,7 +13,8 @@ html {
 }
 
 body {
-  font-size: 1.7rem 
+  font-size: 1.7rem;
+  background-color: var(--color-white-theme3);
 }
 
 .container-general {
@@ -54,6 +55,9 @@ body {
   --color-border-gray: #dbdbdb;
   --color-border-dark-gray: #929292;
 
+  --color-alert-light-warn: #fab1a0;
+  --color-alert-strong-warn: #d63031;
+
   --padding-buttons: 1rem 2rem;
 }
 
@@ -61,6 +65,10 @@ body {
   background: var(--color-black-theme1);
   color: var(--color-white);
 } */
+
+.text-strike {
+  border: 2px solid  var(--color-alert-strong-warn) !important
+}
 
 .input-control {
   width: 100%;

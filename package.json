@@ -1,7 +1,6 @@
 {
   "name": "dsp-mi-folio",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -16,6 +15,7 @@
     "react-scripts": "4.0.3",
     "react-trix-rte": "^1.0.14",
     "styled-components": "^5.3.1",
+    "sweetalert2": "^11.1.9",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^1.1.2"
   },

@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom'
 import Trix from 'trix'
 import { ReactTrixRTEInput } from 'react-trix-rte'
 import { arrayOfSkills } from '../utils/helpers'
-import projectService from '../services/project'
+import { createNewProject } from '../services/project'
+import { getToken } from '../utils/helpers'
 import '../assets/styles/form.css'
 
 
@@ -23,12 +24,12 @@ const FormAddProject = () => {
   }
 
   const handleName = e => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setName(e.target.value)
   }
 
   const handleDescription = e => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setDescription(e.target.value)
   }
 
@@ -51,28 +52,14 @@ const FormAddProject = () => {
     formData.append('image', image)
     formData.append('technologies', technology)
 
-    projectService
-      .create(formData)
-      .then(() => {
-        history.push('/')
+    createNewProject(formData, getToken())
+      .then((res) => {
+        const { data: { body } } = res
+        history.push(`${process.env.PUBLIC_URL}/project/${body.url}`)
       })
-      
-      
-      
-    // await fetch('http://localhost:5000/api/add-project', {
-    //   method: 'POST',
-    //   body: formData
-    // }).then(res => res.json())
-    //   .then(data => {
-    //     console.log(data);
-
-    //     if (data.error) {
-    //       console.log(data.status);
-    //     } else {
-    //       history.push(`/project/${data.body.url}`)
-    //     }
-    //   })
-    
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   return (
@@ -100,10 +87,9 @@ const FormAddProject = () => {
 
           <label htmlFor="">Technologies used in the project</label>
           <div className="knowledge-list-addproject" value={technology}>
-            {arrayOfSkills.map(technology => {
+            {arrayOfSkills.map((technology, idx) => {
               return (
-                <>
-                  <li key={technology.id} className="tag-skill" htmlFor={`custom-checkbox-${technology.id}`}>
+                  <li key={idx} className="tag-skill" htmlFor={`custom-checkbox-${technology.id}`}>
                     <input
                       type="checkbox"
                       id={`custom-checkbox-${technology.id}`}
@@ -112,9 +98,8 @@ const FormAddProject = () => {
                       value={technology.tech}
                       onChange={handleTechnology}
                     />
-                    <label key={technology.id + 1} htmlFor={`custom-checkbox-${technology.id}`}>{technology.tech}</label>
+                    <label htmlFor={`custom-checkbox-${technology.id}`}>{technology.tech}</label>
                   </li>
-                </>
               )
             })}
           </div>

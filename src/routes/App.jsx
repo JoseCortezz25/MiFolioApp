@@ -29,17 +29,17 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={Home} layout={EmptyLayouts} />
-        <Route exact path="/register" component={Register} layout={EmptyLayouts} />
-        <Route exact path="/login" component={Login} layout={EmptyLayouts} />
+        <Route exact path={process.env.PUBLIC_URL + "/"} component={Home} layout={EmptyLayouts} />
+        <Route exact path={process.env.PUBLIC_URL + "/register"} component={Register} layout={EmptyLayouts} />
+        <Route exact path={process.env.PUBLIC_URL + "/login"} component={Login} layout={EmptyLayouts} />
 
-        <ProtectedRoute exact path="/feed" component={Feed} layout={MainLayouts} />
-        <Route exact path="/user/:username" component={Profile} layout={MainLayouts} />
-        <ProtectedRoute path="/update-user/:username" component={FormUpdateUser} layout={MainLayouts} />
+        <ProtectedRoute exact path={process.env.PUBLIC_URL + "/feed"} component={Feed} layout={MainLayouts} />
+        <Route exact path={process.env.PUBLIC_URL + "/user/:username"} component={Profile} layout={MainLayouts} />
+        <ProtectedRoute path={process.env.PUBLIC_URL + "/update-user/:username"} component={FormUpdateUser} layout={MainLayouts} />
 
-        <ProtectedRoute path="/add-project/" component={FormAddProject} layout={MainLayouts} />
-        <ProtectedRoute path="/update-project/:url" component={FormUpdateProject} layout={MainLayouts} />
-        <Route path="/project/:url" component={SingleProject} layout={MainLayouts} />
+        <ProtectedRoute path={process.env.PUBLIC_URL + "/add-project/"} component={FormAddProject} layout={MainLayouts} />
+        <ProtectedRoute path={process.env.PUBLIC_URL + "/update-project/:url"} component={FormUpdateProject} layout={MainLayouts} />
+        <Route path={process.env.PUBLIC_URL + "/project/:url"} component={SingleProject} layout={MainLayouts} />
 
         <Route component={PageNotFound} layout={EmptyLayouts} />
       </Switch>

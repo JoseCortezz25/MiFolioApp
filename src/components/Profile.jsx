@@ -17,7 +17,6 @@ const Profile = () => {
 
   useEffect(() => {
     getUserByUsername(username).then(dataUser => {
-      console.log(dataUser);
       setUserProfile(dataUser)
     })
   }, [username])
@@ -34,17 +33,18 @@ const Profile = () => {
         <div className="profile-info">
           <div className="box-fullname">
             <h1 className="profile-name">{userProfile?.fullname}</h1>
-            { isAuthenticated && validateUser(userProfile._id, getCurrentUser()) ? <Link to={`/update-user/${userProfile?.username}`} className="btn-edit-user">Edit user</Link> : null}
+            { isAuthenticated && validateUser(userProfile._id, getCurrentUser()) ? <Link to={`${process.env.PUBLIC_URL}/update-user/${userProfile?.username}`} className="btn-edit-user">Edit user</Link> : null}
           </div>
           <p className="profile-profession">{userProfile?.profession}</p>
           <p className="profile-description">{userProfile?.description}</p>
+          { isAuthenticated && validateUser(userProfile._id, getCurrentUser()) ? <Link to={`${process.env.PUBLIC_URL}/add-project/`} className="btn-standard btn-add">Add new project</Link> : null}
         </div>
       </div>
       <div className="section-profile-info">
 
         <div className="feed-projects-profile">
           <div className="box-title-projects">
-            <span className="icon-feed"><img src={iconFeed} alt="" /></span><p>Projects</p>
+            <span className="icon-feed"><img src={iconFeed} alt="icon" /></span><p>Projects</p>
           </div>
           {userProfile.projects.length > 0 
             ?
@@ -55,7 +55,10 @@ const Profile = () => {
                 ))}
               </Masonry>
             </ResponsiveMasonry>
-            :  <p> No hay proyectos </p>
+            : <div className="section-not-resources">
+                <p>You do not have any added projects</p>
+                <Link to={`${process.env.PUBLIC_URL}/add-project/`} className="btn-standard btn-add">Add new project</Link>
+              </div>
           }
         </div>
       </div>

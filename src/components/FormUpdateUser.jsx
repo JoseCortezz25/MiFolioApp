@@ -26,7 +26,7 @@ const FormUpdateUser = () => {
 
     updateUserById(getCurrentUser(), formData)
       .then(res => {
-        history.push(`/user/${res.username}`)
+        history.push(`${process.env.PUBLIC_URL}/user/${res.username}`)
       })
   }
 

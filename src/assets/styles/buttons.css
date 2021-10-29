@@ -36,11 +36,13 @@
 .btn-add {
   background-color: var(--color-winter-theme2);
   color: var(--color-white);
+  border: 2px solid var(--color-winter-theme2);
 }
 
 .btn-delete {
   background-color: var(--color-alert-strong-warn);
   color: var(--color-white);
+  margin-left: 1rem;
   border: 2px solid var(--color-alert-strong-warn);
 }
 
@@ -77,7 +79,7 @@
 .btn-edit:hover {
   background-color: var(--color-white);
   color: var(--color-winter-them2);
-  box-shadow: -3px -3px 0px 0px var(--color-winter-theme2);
+  box-shadow: -3px -3px 0px 0px var(--color-black-theme1);
 }
 
 .btn-add:hover {
@@ -111,4 +113,16 @@
 
 .btn-edit-user:hover {
   background-color: var(--color-border-gray);
+}
+
+.swal2-title, .swal2-actions {
+  font-size: 1.7rem;
+}
+
+.swal2-popup {
+  font-size: 48em;
+}
+
+div#swal2-html-container {
+font-size: 1.3rem;
 }

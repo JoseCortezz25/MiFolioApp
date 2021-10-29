@@ -6,6 +6,7 @@ import { useParams } from 'react-router'
 import { ReactTrixRTEInput } from 'react-trix-rte'
 import { arrayOfSkills } from '../utils/helpers'
 import '../assets/styles/form.css'
+import { updateProject } from '../services/project'
 
 const technologies = new Set()
 
@@ -19,7 +20,7 @@ const FormUpdateProject = () => {
   const { url } = useParams()
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/project/${url}`, { method: "GET" })
+    fetch(`https://mi-folio-app.herokuapp.com/api/project/${url}`, { method: "GET" })
       .then(project => project.json())
       .then(data => {
         setProject(data.body)
@@ -37,7 +38,7 @@ const FormUpdateProject = () => {
     setTechnology(Array.from(technologies))
   }
 
-  const handleSendData = async (e) => {
+  const handleSubmitProjectUpdated = async (e) => {
     e.preventDefault()
     const formData = new FormData()
     formData.append('name', name)
@@ -45,12 +46,14 @@ const FormUpdateProject = () => {
     formData.append('image', image)
     formData.append('technologies', technology)
     formData.append('url', url)
-    await fetch(`http://localhost:5000/api/update-project/${url}`, {
-      method: 'POST',
-      body: formData
-    }).then(res => res.json())
-      .then(data => {
-        history.push(`/project/${data.body.url}`)
+
+    updateProject(url, formData)
+      .then((res) => {
+        const { data: { body } } = res
+        history.push(`${process.env.PUBLIC_URL}/project/${body.url}`)
+      })
+      .catch(error => {
+        console.log(error)
       })
   }
 
@@ -63,7 +66,7 @@ const FormUpdateProject = () => {
           action="/project/add"
           method="POST"
           encType="multipart/form-data"
-          onSubmit={handleSendData}>
+          onSubmit={handleSubmitProjectUpdated}>
 
           <label htmlFor="name">Name of the project</label>
           <input

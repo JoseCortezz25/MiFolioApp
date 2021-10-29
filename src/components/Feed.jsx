@@ -18,7 +18,7 @@ const Feed = () => {
       setCurrentUser(dataUser)
     })
 
-    fetch('http://localhost:5000/api/projects')
+    fetch('https://mi-folio-app.herokuapp.com/api/projects')
       .then(projects => projects.json())
       .then(data => {
         setProjects(data.data)

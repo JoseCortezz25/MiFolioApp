@@ -1,12 +1,17 @@
 import axios from 'axios';
-import { setToken, setCurrentUser } from '../utils/helpers';
+// const baseURL = 'https://mi-folio-app.herokuapp.com/api';
 const baseURL = 'http://localhost:5000/api';
 
-export const login = async (credentials) => {
-  const response = await axios.post(`${baseURL}/login`, credentials);
-  setToken(response.data.body.token);
-  setCurrentUser(response.data.body.id);
-  return response.data.body;
+export const login = (credentials) => {
+  return axios.post(`${baseURL}/login`, credentials)
+};
+
+export const isVerifyUser = (email) => {
+  return axios.post(`${baseURL}/verifyuser`, { email });
+};
+
+export const register = (credentials) => {
+  return axios.post(`${baseURL}/register`, credentials);
 };
 
 export const getUser = async (id) => {
@@ -15,7 +20,6 @@ export const getUser = async (id) => {
 };
 
 export const getUserByUsername = async (username) => {
-  console.log(`${baseURL}/user-username/${username}`);
   const response = await axios.get(`${baseURL}/user-username/${username}`);
   return response.data.body;
 };

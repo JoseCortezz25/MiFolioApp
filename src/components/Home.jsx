@@ -15,8 +15,8 @@ const Home = () => {
             <img src={logoIcon} alt="Logo" />
           </div>
           <p className="description-initial-page">Comparte tus proyectos con todo el mundo. Demuestra tu talento.</p>
-          <Link to="/login" className="btn-standard btn-login">Log In</Link>
-          <Link to="/register" className="btn-standard btn-register">Create new account</Link>
+          <Link to={process.env.PUBLIC_URL + "/login"} className="btn-standard btn-login">Log In</Link>
+          <Link to={process.env.PUBLIC_URL + "/register"} className="btn-standard btn-register">Create new account</Link>
         </div>
       </div>
       <div className="box-initial-page">

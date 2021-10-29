@@ -1,20 +1,18 @@
 import React from 'react'
-// import parse from 'html-react-parser'
-import '../assets/styles/CardProject.css'
 import { Link } from 'react-router-dom';
+import '../assets/styles/CardProject.css'
 
 const CardProject = ({
   project: {
     name,
-    description,
     technologies,
-    created_at,
     url,
-    image_project
+    image_project,
+    user
   } }) => {
 
   return (
-    <Link to={"/project/" + url} className="card-project-link">
+    <Link to={process.env.PUBLIC_URL + "/project/" + url} className="card-project-link">
       <article className="card-project">
         <div className="card-project__image">
           <img src={image_project?.imageURL} alt={name} />
@@ -26,7 +24,7 @@ const CardProject = ({
             })}
           </div>
           <h2>{name}</h2>
-          {/* <p>{parse(description)}</p> */}
+          { user?.fullname ? <span>By {user?.fullname}</span> : null}
         </div>
       </article>
     </Link>

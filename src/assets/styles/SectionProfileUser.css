@@ -1,0 +1,12 @@
+.section-owner {
+  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.section-owner span {
+  margin-left: 1.2rem;
+  font-weight: 500;
+  color: var(--color-black)
+}
