@@ -56,8 +56,8 @@ const Profile = () => {
               </Masonry>
             </ResponsiveMasonry>
             : <div className="section-not-resources">
-                <p>You do not have any added projects</p>
-                <Link to={`${process.env.PUBLIC_URL}/add-project/`} className="btn-standard btn-add">Add new project</Link>
+                <p>😕 No project added yet</p>
+                { isAuthenticated && validateUser(userProfile._id, getCurrentUser()) ? <Link to={`${process.env.PUBLIC_URL}/add-project/`} className="btn-standard btn-add">Add your first project</Link> : null}
               </div>
           }
         </div>
