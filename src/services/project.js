@@ -1,6 +1,5 @@
 import axios from 'axios';
-// const baseURL = 'https://mi-folio-app.herokuapp.com/api';
-const baseURL = 'http://localhost:5000/api';
+const baseURL = 'https://mi-folio-app.herokuapp.com/api';
 
 export const createNewProject = (project, token) => {
   const config = {     
@@ -12,7 +11,6 @@ export const createNewProject = (project, token) => {
 };
 
 export const deleteProject = (projectId) => {
-  // console.log(projectID);
   return axios.delete(`${baseURL}/delete-project/${projectId}`);
 };
 
