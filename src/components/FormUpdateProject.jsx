@@ -5,8 +5,9 @@ import Trix from 'trix'
 import { useParams } from 'react-router'
 import { ReactTrixRTEInput } from 'react-trix-rte'
 import { arrayOfSkills } from '../utils/helpers'
-import '../assets/styles/form.css'
+import MessageError from './MessageError'
 import { updateProject } from '../services/project'
+import '../assets/styles/form.css'
 
 const technologies = new Set()
 
@@ -16,6 +17,8 @@ const FormUpdateProject = () => {
   const [description, setDescription] = useState('')
   const [technology, setTechnology] = useState('')
   const [image, setImage] = useState('')
+  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   let history = useHistory()
   const { url } = useParams()
 
@@ -38,6 +41,29 @@ const FormUpdateProject = () => {
     setTechnology(Array.from(technologies))
   }
 
+  const handleDescription = (e) => {
+  console.log(e);
+  }
+
+  const handleImage = (e) => {
+    console.log('e')
+    console.log(e)
+    const allowedMimes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png'
+    ]
+    if (allowedMimes.includes(e.type)) {
+      setImage(e)
+      setError(false)
+    } else {
+      window.document.getElementById('input-file').value = ''
+      setImage('')
+      setError(true)
+      setErrorMessage('Invalid file type!. Only allowed jpeg, jpg and png')
+    }
+  }
+
   const handleSubmitProjectUpdated = async (e) => {
     e.preventDefault()
     const formData = new FormData()
@@ -58,6 +84,7 @@ const FormUpdateProject = () => {
   }
 
   return (
+    
     <section className="container-form">
       <div className="container-add-project__content">
         <h2 className="title-principal-form">Update project</h2>
@@ -74,16 +101,16 @@ const FormUpdateProject = () => {
             name="name"
             className="input-control"
             defaultValue={project.name}
-            // value={project.name}
-            // placeholder={project.name || "Enter the name of your project"}
             onChange={({ target }) => setName(target.value)}
             required></input>
 
           <label htmlFor="description">Description of the project</label>
           <ReactTrixRTEInput
             name="description"
-            defaultValue={project.description}
-            onChange={({ target }) => setDescription(target.value)} />
+            // defaultValue="<div>React Trix Rich Text Editor</div>"
+            // defaultValue={project.description}
+            onChange={({ target }) => setDescription(target.value)}
+            />
 
           <label htmlFor="">Technologies used in the project</label>
           <div className="knowledge-list-addproject" value={technology}>
@@ -107,13 +134,15 @@ const FormUpdateProject = () => {
           <label htmlFor="image">Upload an image of the project</label>
           <br />
 
+          {error ? <MessageError error={errorMessage} /> : null}
           <input
             type="file"
             name="image"
             className="custom-file-input"
-            id="inputGroupFile01"
-            onChange={({ target }) => setImage(target.files[0])}></input>
-          <label htmlFor="inputGroupFile01" className="custom-file-label">Choose file</label>
+            id="input-file"
+            onChange={({ target }) => handleImage(target.files[0])}>
+            </input>
+          <label htmlFor="input-file" className="custom-file-label">Choose file</label>
 
           <input type="hidden" name="technologies" id="technologies"></input>
           <input type="submit" value="Update project" className="btn-standard btn-form"></input>

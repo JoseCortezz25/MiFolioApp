@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react'
+import Swal from 'sweetalert2'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 import { useParams } from 'react-router'
 import parse from 'html-react-parser'
 import { getToken, validateUser, getCurrentUser } from '../utils/helpers'
 import { Loading } from './Loading'
-import { Link } from 'react-router-dom'
+// import { deteleProject } from '../services/project'
+import { useHistory } from 'react-router-dom'
 import SectionProfileUser from './SectionProfileUser'
 import '../assets/styles/SingleProject.css'
-import Swal from 'sweetalert2'
+
 
 const SingleProject = () => {
   const [project, setProject] = useState([])
   const { url } = useParams()
   const isAuthenticated = getToken()
+  let history = useHistory()
+  const baseURL = 'https://mi-folio-app.herokuapp.com/api';
 
   useEffect(() => {
-    fetch(`https://mi-folio-app.herokuapp.com/api/project/${url}`, { method: "GET" })
+    fetch(`${baseURL}/project/${url}`, { method: "GET" })
       .then(project => project.json())
       .then(data => {
         setProject(data.body)
@@ -34,6 +40,21 @@ const SingleProject = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
+        axios.delete(`${baseURL}/api/delete-project/${project._id}`)
+          .then(res => {
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                history.push(`${process.env.PUBLIC_URL}/user/${project.user.username}`)
+              }
+            })
+          })
+          .catch(err => {
+            console.log(err)
+          })
         Swal.fire(
           'Deleted!',
           'Your project has been deleted.',

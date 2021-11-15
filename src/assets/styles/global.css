@@ -104,3 +104,14 @@ body {
 .title-principal-form {
   text-align: center;
 }
+
+blockquote {
+  font-size: 2rem;
+  font-style: italic;
+  border-left: 2px solid black;
+  padding-left: 10px;
+}
+
+blockquote::after, blockquote::before {
+  content: '"';
+}

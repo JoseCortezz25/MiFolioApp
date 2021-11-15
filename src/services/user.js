@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const baseURL = 'https://mi-folio-app.herokuapp.com/api';
-const baseURL = 'http://localhost:5000/api';
+const baseURL = 'https://mi-folio-app.herokuapp.com/api';
+// const baseURL = 'http://localhost:5000/api';
 
 export const login = (credentials) => {
   return axios.post(`${baseURL}/login`, credentials)

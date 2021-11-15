@@ -6,6 +6,7 @@ import { ReactTrixRTEInput } from 'react-trix-rte'
 import { arrayOfSkills } from '../utils/helpers'
 import { createNewProject } from '../services/project'
 import { getToken } from '../utils/helpers'
+import MessageError from './MessageError'
 import '../assets/styles/form.css'
 
 
@@ -16,30 +17,40 @@ const FormAddProject = () => {
   const [image, setImage] = useState('')
   const [description, setDescription] = useState('')
   const [technology, setTechnology] = useState()
+  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   let history = useHistory()
 
-  const handleImage = e => {
-    setImage(e.target.files[0])
-    // console.log(technologies);
+  const handleImage = (e) => {
+    const allowedMimes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png'
+    ]
+    if (allowedMimes.includes(e.type)) {
+      setImage(e)
+      setError(false)
+    } else {
+      window.document.getElementById('input-file-add').value = ''
+      setImage('')
+      setError(true)
+      setErrorMessage('Invalid file type!. Only allowed jpeg, jpg and png')
+    }
   }
 
   const handleName = e => {
-    // console.log(e.target.value);
     setName(e.target.value)
   }
 
   const handleDescription = e => {
-    // console.log(e.target.value);
     setDescription(e.target.value)
   }
 
   const handleTechnology = (e) => {
     if (technologies.has(e.target.value)) {
       technologies.delete(e.target.value)
-      // e.target.classList.remove('active')
     } else {
       technologies.add(e.target.value)
-      // e.target.classList.add('active')
     }
     setTechnology(Array.from(technologies))
   }
@@ -52,14 +63,20 @@ const FormAddProject = () => {
     formData.append('image', image)
     formData.append('technologies', technology)
 
-    createNewProject(formData, getToken())
-      .then((res) => {
-        const { data: { body } } = res
-        history.push(`${process.env.PUBLIC_URL}/project/${body.url}`)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    if (!image) {
+      setError(true)
+      setErrorMessage('You have not selected an image')
+    } else {
+      setError(false)
+      createNewProject(formData, getToken())
+        .then((res) => {
+          const { data: { body } } = res
+          history.push(`${process.env.PUBLIC_URL}/project/${body.url}`)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 
   return (
@@ -107,15 +124,17 @@ const FormAddProject = () => {
 
           <label htmlFor="image">Upload an image of the project</label>
           <br />
+
+          {error ? <MessageError error={errorMessage} /> : null}
           <input
             type="file"
             name="image"
             className="custom-file-input"
-            id="inputGroupFile01"
-            onChange={handleImage}
+            id="input-file-add"
+            onChange={({ target }) => handleImage(target.files[0])}
           ></input>
 
-          <label htmlFor="inputGroupFile01" className="custom-file-label">Choose file</label>
+          <label htmlFor="input-file-add" className="custom-file-label">Choose file</label>
           <input type="hidden" name="technologies" id="technologies"></input>
           <input type="submit" value="Add project" className="btn-standard btn-form"></input>
         </form>

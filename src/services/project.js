@@ -9,18 +9,13 @@ export const createNewProject = (project, token) => {
     }
   }
   return axios.post(`${baseURL}/add-project `, project, config);
-  // await fetch('https://mi-folio-app.herokuapp.com/api/add-project', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Authorization': `Bearer ${token}`
-  //   },
-  //   body: newObject
-  // }).then(res => res.json())
-  //   .then(data => {
-  //     return data
-  //   })
+};
+
+export const deleteProject = (projectId) => {
+  // console.log(projectID);
+  return axios.delete(`${baseURL}/delete-project/${projectId}`);
 };
 
 export const updateProject = (url, projectUpdated) => {
-  return axios.post(`${baseURL}/update-project/${url}`, projectUpdated)
+  return axios.post(`${baseURL}/update-project/${url}`, projectUpdated);
 };
