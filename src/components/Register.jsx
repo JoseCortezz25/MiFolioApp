@@ -115,7 +115,7 @@ const Register = ({ history }) => {
               placeholder="Enter your profession"></input>
 
             {error || errorEmail ? <MessageError error={errorMessage} /> : null}
-            <a href={process.env.PUBLIC_URL + "/login"} className="link-redirect">Do you already have an account? Login now</a>
+            <a href={"/login"} className="link-redirect">Do you already have an account? Login now</a>
             <button type="submit" className="btn-standard btn-form">Register</button>
           </form>
         </div>

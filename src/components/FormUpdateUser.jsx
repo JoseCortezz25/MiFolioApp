@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 // import { useUser } from '../context/UserContext'
-import { getUser, updateUserById } from '../services/user'
+import { updateUserById } from '../services/user'
 import { getCurrentUser } from '../utils/helpers'
 // import { Loading } from './Loading'
 import { useHistory } from 'react-router-dom'

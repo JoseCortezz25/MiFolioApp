@@ -24,22 +24,22 @@ const Header = () => {
       <nav className="title-header">
         <div className="logo">
           {isAuthenticated
-            ? <Link to={process.env.PUBLIC_URL + "/feed"}><img src={logoIcon} alt="" /></Link>
-            : <Link to={process.env.PUBLIC_URL + "/"}><img src={logoIcon} alt="" /></Link>
+            ? <Link to={"/feed"}><img src={logoIcon} alt="" /></Link>
+            : <Link to={"/"}><img src={logoIcon} alt="" /></Link>
           }
         </div>
       </nav>
       {isAuthenticated
         ?
         <nav className="nav-items">
-          <Link to={process.env.PUBLIC_URL + "/"} onClick={logout}><img className="icon-header" src={iconExit} alt="" /></Link>
+          <Link to={"/"} onClick={logout}><img className="icon-header" src={iconExit} alt="" /></Link>
           <Link to={`${process.env.PUBLIC_URL}/user/${currentUser?.username}`}>
             <ProfileImage user={user} />
           </Link>
         </nav>
         :
         <nav className="nav-items">
-          <Link to={process.env.PUBLIC_URL + "/login"}>Log in</Link>
+          <Link to={"/login"}>Log in</Link>
         </nav>
       }
     </header>

@@ -70,7 +70,7 @@ const Login = ({ history }) => {
               placeholder="Enter your password"></input>
 
             {error ? <MessageError error={errorMessage} /> : null}
-            <a href={process.env.PUBLIC_URL + "/register"} className="link-redirect">Don't you have an account? Create it now</a>
+            <a href={"/register"} className="link-redirect">Don't you have an account? Create it now</a>
             <button type="submit" className="btn-standard btn-form">Log in</button>
           </form>
         </div>
