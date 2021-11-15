@@ -40,7 +40,7 @@ const SingleProject = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${baseURL}/api/delete-project/${project._id}`)
+        axios.delete(`${baseURL}/delete-project/${project._id}`)
           .then(res => {
             Swal.fire(
               'Deleted!',
