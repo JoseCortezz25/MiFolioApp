@@ -15,7 +15,6 @@ const Login = ({ history }) => {
     e.preventDefault()
 
     try {
-      console.log('email', email)
       const {data: {message}} = await isVerifyUser(email)
       if (message === 'User don\'t exist') {
         setError(true)
@@ -38,7 +37,7 @@ const Login = ({ history }) => {
           setErrorMessage('Password or email incorrect')
         });
     } catch (error) {
-      
+      console.log(error);
     }
   }
 

@@ -6,11 +6,9 @@ import { useParams } from 'react-router'
 import parse from 'html-react-parser'
 import { getToken, validateUser, getCurrentUser } from '../utils/helpers'
 import { Loading } from './Loading'
-// import { deteleProject } from '../services/project'
 import { useHistory } from 'react-router-dom'
 import SectionProfileUser from './SectionProfileUser'
 import '../assets/styles/SingleProject.css'
-
 
 const SingleProject = () => {
   const [project, setProject] = useState([])

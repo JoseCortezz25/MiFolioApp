@@ -57,7 +57,7 @@ const FormUpdateUser = () => {
             className="input-control"
             // defaultValue={user.email}
             onChange={({ target }) => setEmail(target.value)}
-            placeholder="Enter your username" />
+            placeholder="Enter your email" />
 
           <label htmlFor="description">Description</label>
           <input

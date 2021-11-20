@@ -43,3 +43,35 @@
   justify-content: center;
   align-items: center;
 }
+
+@media screen and (max-width: 768px) {
+  .container-login {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: start;
+  }
+  .section-login {
+    width: 100%;
+  }
+
+  .section-login:nth-of-type(1) {
+    width: 100%;
+  }
+
+  .section-login:nth-of-type(2) {
+    width: 100%;
+    height: 88px;
+  }
+  
+  .section-login:nth-of-type(2) .title-section-form h2 {
+    font-size: 2.4rem;
+    text-align: center;
+  }
+
+}
+
+@media screen and (max-width: 489px) { 
+  .section-login .section-login__info {
+    width: 80%;
+  }
+}

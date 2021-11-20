@@ -1,4 +1,4 @@
 import React from 'react'
 import '../assets/styles/Loading.css'
 
-export const Loading = () => ( <div className="spinner"></div>)
+export const Loading = () => ( <div className="spinner"></div> )

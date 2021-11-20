@@ -8,7 +8,6 @@ const Home = () => {
   return (
     <section className="initial-page">
       <div className="box-initial-page">
-
         <div className="box-initial-page__info">
           <div className="box-initial-page__logo">
             <img src={logoIcon} alt="Logo" />

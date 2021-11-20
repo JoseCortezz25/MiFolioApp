@@ -41,10 +41,6 @@ const FormUpdateProject = () => {
     setTechnology(Array.from(technologies))
   }
 
-  const handleDescription = (e) => {
-  console.log(e);
-  }
-
   const handleImage = (e) => {
     console.log('e')
     console.log(e)
