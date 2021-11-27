@@ -44,7 +44,7 @@ const Feed = () => {
 
     </section> 
   ) : (
-    <div>No exite productos :/</div>
+    <div>No existe productos :/</div>
   )
 }
 
