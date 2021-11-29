@@ -11,6 +11,7 @@ import '../assets/styles/Feed.css'
 const Feed = () => {
   const [currentUser, setCurrentUser] = useState(null)
   const [projects, setProjects] = useState([])
+  const [searchText , setSearchText] = useState('')
   const { user } = useUser()
 
   useEffect(() => {
@@ -26,14 +27,24 @@ const Feed = () => {
       .catch(error => console.log(error))
   }, [user])
 
+  const projectsSearch = projects.filter(project => {
+    return project.name.toLowerCase().includes(searchText.toLowerCase())
+  })
+
   return projects ? (
     <section className="container-feed">
-      { currentUser ? <CoverImage nameUser={currentUser}/> : <Loading /> }
+      { currentUser 
+        ? <CoverImage 
+          nameUser={currentUser} 
+          setSearchText={(text) => setSearchText(text)}
+        /> 
+        : <Loading /> 
+      }
       
       <div className="feed-projects">
         <ResponsiveMasonry>
           <Masonry gutter="3rem">
-            {projects.map(project => {
+            {projectsSearch.map(project => {
               return (
                 <CardProject key={project._id} project={project} />
               )

@@ -115,3 +115,13 @@ blockquote {
 blockquote::after, blockquote::before {
   content: '"';
 }
+
+.project-search {
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 16px 21px;
+  border: none;
+  border-radius: 13px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
