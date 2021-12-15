@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, createContext, useState, useMemo, useContext } from 'react';
 import { getToken, deleteToken, getCurrentUser } from '../utils/helpers';
 import { getUser } from '../services/user';
 
-const UserContext = React.createContext();
+const UserContext = createContext()
 
 export function UserContextProvider(props) {
-  const [user, setUser] = React.useState(null);
-  const [loadingUser, setLoadingUser] = React.useState(true);
+  const [user, setUser] = useState(null)
+  const [loadingUser, setLoadingUser] = useState(true)
 
   useEffect(() => {
     const loadUser = async () => {
@@ -32,7 +32,7 @@ export function UserContextProvider(props) {
     deleteToken();
   }
 
-  const value = React.useMemo(() => {
+  const value = useMemo(() => {
     return {
       user,
       loadingUser,
@@ -44,7 +44,7 @@ export function UserContextProvider(props) {
 }
 
 export const useUser = () => {
-  const context = React.useContext(UserContext);
+  const context = useContext(UserContext);
   if (!context) throw new Error('useUser must be used within a UserContextProvider');
   return context;
 }

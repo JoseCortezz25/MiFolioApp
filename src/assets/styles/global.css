@@ -44,9 +44,12 @@ body {
 
   --color-white: #fff;
   --color-gray: #F5F6FA;
+  --color-gray-hover: #e7e8eb;
   --color-black: #000;
   --color-blue: #0070f3;
   --color-blue-light: #3973aa;
+  --fds-blue-60: #1877F2;
+  --fds-blue-70: #2851A3;
 
   --color-profile-name: #5C6C79;
   --color-text-default: #51525D;
@@ -59,12 +62,25 @@ body {
   --color-alert-strong-warn: #d63031;
 
   --padding-buttons: 1rem 2rem;
+
+  --color-dark-f1: #161819;
+  --color-dark-f2: #181A1B;
+  --color-dark-f3: #1C1E1F;
+  --color-dark-f4: #27292D;
+  --color-dark-text: #CDCFD2;
+  --color-message-blue-emitter: #3C7DFA;
+  --color-message-blue-receiver: #27292E;
 }
 
 /* *::selection {
   background: var(--color-black-theme1);
   color: var(--color-white);
 } */
+
+.EmptyDarkLayouts {
+  background-color: var(--color-dark-f1) !important;
+  color: var(--color-dark-text);
+}
 
 .text-strike {
   border: 2px solid  var(--color-alert-strong-warn) !important

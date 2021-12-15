@@ -116,6 +116,59 @@
   background-color: var(--color-border-gray);
 }
 
+.btn-normal-standard {
+  display: inline-block;
+  border-radius: 5px;
+  padding: 5px 12px;
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: bold;
+  transition: background .4s cubic-bezier(0.075, 0.82, 0.165, 1);
+  margin-left: 1.3rem;
+}
+
+.btn-follow {
+  background-color: var(--fds-blue-60);
+}
+
+.btn-follow:hover {
+  background-color: var(--fds-blue-70); 
+}
+
+.btn-following {
+  background-color: transparent;
+  border: 2px solid var(--fds-blue-70) !important;
+  color: var(--fds-blue-70);
+}
+
+.btn-following:hover {
+  background-color: var(--fds-blue-70); 
+  color: var(--color-white);
+}
+
+.btn-message {
+  background-color: var(--fds-blue-60);
+  display: inline-block;
+  border-radius: 5px;
+  padding: 8px 20px;
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: bold;
+  transition: background .4s cubic-bezier(0.075, 0.82, 0.165, 1);
+  margin-top: 1rem;
+}
+
+.btn-message img {
+  width: 20px;
+  height: 20px;
+  margin-right: .7rem;
+  margin-bottom: -.6rem;
+}
+
+.btn-message:hover {
+  background-color: var(--fds-blue-70); 
+}
+
 .swal2-title, .swal2-actions {
   font-size: 1.7rem;
 }
@@ -133,4 +186,10 @@ font-size: 1.3rem;
     font-size: 1.5rem;
     padding: 4px ​10px;
   }
+}
+
+.none-style-btn{
+  border: none;
+  font-size: 1.5rem;  
+  cursor: pointer;
 }

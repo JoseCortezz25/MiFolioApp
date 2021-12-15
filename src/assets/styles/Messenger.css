@@ -1,0 +1,52 @@
+.MessengerContainer {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 30% 1fr;
+}
+
+.MessengerContainer__section {
+  /* border: 1px solid red; */
+}
+
+.MessengerContainer__section:nth-of-type(1) {
+  background-color: var(--color-dark-f2);
+}
+
+.MessengerContainer__profile {
+  background-color: var(--color-dark-f4);
+  width: 80%;
+  margin: auto;
+  margin-top: 2rem;
+  display: flex;
+  padding: 1.1rem 2rem;
+  border-radius: 1.5rem;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.MessengerProfileBox__image {
+  width: 5rem;
+}
+
+.MessengerProfileBox__image {
+  margin-right: 2rem;
+}
+
+.MessengerProfileBox__image img {
+  width: 100%;
+  border-radius: 33%;
+}
+
+.MessengerProfileBox__fullname {
+  font-size: 1.9rem;
+  /* font-weight: 600; */
+  color: var(--color-white);
+}
+
+.BoxUsers {
+  width: 80%;
+  margin: auto;
+  margin-top: 2rem;
+  border: 1px solid red;
+}
