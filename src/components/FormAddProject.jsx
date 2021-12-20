@@ -7,16 +7,15 @@ import { arrayOfSkills } from '../utils/helpers'
 import { createNewProject } from '../services/project'
 import { getToken } from '../utils/helpers'
 import MessageError from './MessageError'
+import { TagsInput } from './TagsInput'
 import '../assets/styles/form.css'
-
-
-const technologies = new Set()
 
 const FormAddProject = () => {
   const [name, setName] = useState('')
   const [image, setImage] = useState('')
   const [description, setDescription] = useState('')
   const [technology, setTechnology] = useState()
+  const [tags, setTags] = useState([])
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   let history = useHistory()
@@ -38,30 +37,13 @@ const FormAddProject = () => {
     }
   }
 
-  const handleName = e => {
-    setName(e.target.value)
-  }
-
-  const handleDescription = e => {
-    setDescription(e.target.value)
-  }
-
-  const handleTechnology = (e) => {
-    if (technologies.has(e.target.value)) {
-      technologies.delete(e.target.value)
-    } else {
-      technologies.add(e.target.value)
-    }
-    setTechnology(Array.from(technologies))
-  }
-
   const handleSendData = (e) => {
     e.preventDefault()
     const formData = new FormData()
     formData.append('name', name)
     formData.append('description', description)
     formData.append('image', image)
-    formData.append('technologies', technology)
+    formData.append('technologies', tags)
 
     if (!image) {
       setError(true)
@@ -97,33 +79,22 @@ const FormAddProject = () => {
             name="name"
             placeholder="Enter the name of your project"
             className="input-control"
-            onChange={handleName} required></input>
+            onChange={({ target }) => setName(target.value)} required>
+          </input>
 
           <label htmlFor="description">Description of the project</label>
-          <ReactTrixRTEInput name="description" onChange={handleDescription} />
+          <ReactTrixRTEInput 
+            name="description" 
+            onChange={({ target }) => setDescription(target.value)} 
+          />
 
-          <label htmlFor="">Technologies used in the project</label>
-          <div className="knowledge-list-addproject" value={technology}>
-            {arrayOfSkills.map((technology, idx) => {
-              return (
-                  <li key={idx} className="tag-skill" htmlFor={`custom-checkbox-${technology.id}`}>
-                    <input
-                      type="checkbox"
-                      id={`custom-checkbox-${technology.id}`}
-                      className="custom-checkbox"
-                      name={`checkbox-${technology.id}`}
-                      value={technology.tech}
-                      onChange={handleTechnology}
-                    />
-                    <label htmlFor={`custom-checkbox-${technology.id}`}>{technology.tech}</label>
-                  </li>
-              )
-            })}
-          </div>
-          <br />
+          <label htmlFor="">Write the technologies used to build your project</label>
+          <TagsInput
+            selectedTags={(tags) => setTags(tags)}
+            tags={tags}
+          />
 
           <label htmlFor="image">Upload an image of the project</label>
-          <br />
 
           {error ? <MessageError error={errorMessage} /> : null}
           <input
@@ -135,7 +106,6 @@ const FormAddProject = () => {
           ></input>
 
           <label htmlFor="input-file-add" className="custom-file-label">Choose file</label>
-          <input type="hidden" name="technologies" id="technologies"></input>
           <input type="submit" value="Add project" className="btn-standard btn-form"></input>
         </form>
       </div>

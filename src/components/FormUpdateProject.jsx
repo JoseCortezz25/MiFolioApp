@@ -7,9 +7,8 @@ import { ReactTrixRTEInput } from 'react-trix-rte'
 import { arrayOfSkills } from '../utils/helpers'
 import MessageError from './MessageError'
 import { updateProject } from '../services/project'
+import { TagsInput } from './TagsInput'
 import '../assets/styles/form.css'
-
-const technologies = new Set()
 
 const FormUpdateProject = () => {
   const [project, setProject] = useState([])
@@ -19,6 +18,7 @@ const FormUpdateProject = () => {
   const [image, setImage] = useState('')
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [tags, setTags] = useState([])
   let history = useHistory()
   const { url } = useParams()
 
@@ -31,15 +31,6 @@ const FormUpdateProject = () => {
       .catch(error => console.log(error))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const handleTechnology = (e) => {
-    if (technologies.has(e.target.value)) {
-      technologies.delete(e.target.value)
-    } else {
-      technologies.add(e.target.value)
-    }
-    setTechnology(Array.from(technologies))
-  }
 
   const handleImage = (e) => {
     console.log('e')
@@ -66,7 +57,7 @@ const FormUpdateProject = () => {
     formData.append('name', name)
     formData.append('description', description)
     formData.append('image', image)
-    formData.append('technologies', technology)
+    formData.append('technologies', tags)
     formData.append('url', url)
 
     updateProject(url, formData)
@@ -79,8 +70,7 @@ const FormUpdateProject = () => {
       })
   }
 
-  return (
-    
+  return (  
     <section className="container-form">
       <div className="container-add-project__content">
         <h2 className="title-principal-form">Update project</h2>
@@ -103,33 +93,16 @@ const FormUpdateProject = () => {
           <label htmlFor="description">Description of the project</label>
           <ReactTrixRTEInput
             name="description"
-            // defaultValue="<div>React Trix Rich Text Editor</div>"
-            // defaultValue={project.description}
             onChange={({ target }) => setDescription(target.value)}
-            />
+          />
 
-          <label htmlFor="">Technologies used in the project</label>
-          <div className="knowledge-list-addproject" value={technology}>
-            {arrayOfSkills.map(technology => {
-              return (
-                <li key={technology.id} className="tag-skill" htmlFor={`custom-checkbox-${technology.id}`}>
-                  <input
-                    type="checkbox"
-                    id={`custom-checkbox-${technology.id}`}
-                    className="custom-checkbox"
-                    name={`checkbox-${technology.id}`}
-                    value={technology.tech}
-                    onChange={handleTechnology}
-                  />
-                  <label key={technology.id + 1} htmlFor={`custom-checkbox-${technology.id}`}>{technology.tech}</label>
-                </li>
-              )
-            })}
-          </div>
-          <br />
+          <label htmlFor="">Write the technologies used to build your project</label>
+          <TagsInput
+            selectedTags={(tags) => setTags(tags)}
+            tags={tags}
+          />
+          
           <label htmlFor="image">Upload an image of the project</label>
-          <br />
-
           {error ? <MessageError error={errorMessage} /> : null}
           <input
             type="file"
@@ -137,10 +110,9 @@ const FormUpdateProject = () => {
             className="custom-file-input"
             id="input-file"
             onChange={({ target }) => handleImage(target.files[0])}>
-            </input>
-          <label htmlFor="input-file" className="custom-file-label">Choose file</label>
+          </input>
 
-          <input type="hidden" name="technologies" id="technologies"></input>
+          <label htmlFor="input-file" className="custom-file-label">Choose file</label>
           <input type="submit" value="Update project" className="btn-standard btn-form"></input>
         </form>
       </div>
