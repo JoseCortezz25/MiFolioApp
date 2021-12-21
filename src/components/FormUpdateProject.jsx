@@ -6,7 +6,7 @@ import { useParams } from 'react-router'
 import { ReactTrixRTEInput } from 'react-trix-rte'
 import { arrayOfSkills } from '../utils/helpers'
 import MessageError from './MessageError'
-import { updateProject } from '../services/project'
+import { updateProject, getProjectByUrl } from '../services/project'
 import { TagsInput } from './TagsInput'
 import '../assets/styles/form.css'
 
@@ -14,23 +14,37 @@ const FormUpdateProject = () => {
   const [project, setProject] = useState([])
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [technology, setTechnology] = useState('')
   const [image, setImage] = useState('')
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
-  const [tags, setTags] = useState([])
+  const [tags, setTags] = useState()
   let history = useHistory()
   const { url } = useParams()
 
   useEffect(() => {
-    fetch(`https://mi-folio-app.herokuapp.com/api/project/${url}`, { method: "GET" })
-      .then(project => project.json())
-      .then(data => {
-        setProject(data.body)
-      })
-      .catch(error => console.log(error))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const getDataProjectByUrl = async () => {
+      try {
+        const result = await getProjectByUrl(url)
+        const { data: { body } } = result
+        setProject(body)
+        setName(body.name)
+        setTags(body.technologies)
+        setDescription(body.description)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getDataProjectByUrl()
+
+    window.addEventListener('keydown', function (e) {
+      if (e.keyIdentifier === 'U+000A' || e.keyIdentifier === 'Enter' || e.key === 'Enter') {
+        if (e.target.nodeName === 'INPUT' && e.target.type === 'text') {
+          e.preventDefault();
+          return false;
+        }
+      }
+    }, true);
+  }, [url])
 
   const handleImage = (e) => {
     console.log('e')
@@ -59,7 +73,6 @@ const FormUpdateProject = () => {
     formData.append('image', image)
     formData.append('technologies', tags)
     formData.append('url', url)
-
     updateProject(url, formData)
       .then((res) => {
         const { data: { body } } = res
@@ -70,7 +83,7 @@ const FormUpdateProject = () => {
       })
   }
 
-  return (  
+  return (
     <section className="container-form">
       <div className="container-add-project__content">
         <h2 className="title-principal-form">Update project</h2>
@@ -93,6 +106,7 @@ const FormUpdateProject = () => {
           <label htmlFor="description">Description of the project</label>
           <ReactTrixRTEInput
             name="description"
+            defaultValue={description}
             onChange={({ target }) => setDescription(target.value)}
           />
 
@@ -101,7 +115,7 @@ const FormUpdateProject = () => {
             selectedTags={(tags) => setTags(tags)}
             tags={tags}
           />
-          
+
           <label htmlFor="image">Upload an image of the project</label>
           {error ? <MessageError error={errorMessage} /> : null}
           <input
@@ -113,7 +127,7 @@ const FormUpdateProject = () => {
           </input>
 
           <label htmlFor="input-file" className="custom-file-label">Choose file</label>
-          <input type="submit" value="Update project" className="btn-standard btn-form"></input>
+          <button className="btn-standard btn-form">Update project</button>
         </form>
       </div>
     </section>

@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import '../assets/styles/TagsInputs.css'
 
 const TagsInput = props => {
-	const [tags, setTags] = React.useState(props.tags)
+	const [tags, setTags] = useState(props.tags)
+
+	useEffect(() => {
+		setTags(props.tags)
+	}, [props.tags])
 	
 	const removeTags = indexToRemove => {
 		setTags([...tags.filter((_, index) => index !== indexToRemove)])
+		props.selectedTags([...tags.filter((_, index) => index !== indexToRemove)])
 	}
 
 	const addTags = event => {
@@ -31,7 +36,7 @@ const TagsInput = props => {
 			<input
 				type="text"
 				onKeyUp={event => event.key === "Enter" ? addTags(event) : null}
-				placeholder="Press enter to add tags"
+				placeholder="Press Enter to add tags"
 			/>
 		</div>
 	);
