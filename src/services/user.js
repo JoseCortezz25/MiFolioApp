@@ -11,6 +11,11 @@ export const isVerifyUser = (email) => {
   return axios.post(`${baseURL}/verifyuser`, { email });
 };
 
+export const isVerifyUsername = async (username) => {
+  // console.log(`${baseURL2}/verify-username/${username}`)
+  return axios.post(`${baseURL2}/verify-username/${username}`);
+};
+
 export const register = (credentials) => {
   return axios.post(`${baseURL}/register`, credentials);
 };
@@ -29,20 +34,27 @@ export const updateUserById = async (id, data) => {
   const config = {     
     headers: { 'content-type': 'multipart/form-data' }
   }
-  const response = await axios.post(`${baseURL}/user-username/${id}`, data, config);
+  const response = await axios.post(`${baseURL2}/user-username/${id}`, data, config);
   return response.data.body;
 };
 
 export const followUser = async (id_sender, id_receiver, isFollowingToUser = false) => {
   return await axios.post(`${baseURL2}/follow-user/${id_sender}/${id_receiver}`, isFollowingToUser);
-}
+};
 
-export const verifyUserToFollow = async (id_sender, id_receiver) => {
-  console.log(id_sender, id_receiver);
-  return await axios.post(`${baseURL2}/verify-user-to-follow/${id_sender}/${id_receiver}`);
-}
+// export const verifyUserToFollow = async (id_sender, id_receiver) => {
+//   // console.log(id_sender, id_receiver);
+//   return await axios.post(`${baseURL2}/verify-user-to-follow/${id_sender}/${id_receiver}`);
+// };
+
+export const verifyUserToFollow = async (usernameSender, usernameReceiver) => {
+  return await axios.post(`${baseURL2}/verify-user-to-follow/${usernameSender}/${usernameReceiver}`);
+};
 
 export const getUserFollowing = async (username) => {
-  console.log(`${baseURL2}/user-following/${username}`);
   return await axios.get(`${baseURL2}/user-following/${username}`);
-}
+};
+
+// export const changeUsername = async (id, username) => {
+//   return await axios.post(`${baseURL2}/change-username/${id}`, { username });
+// }

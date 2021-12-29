@@ -12,16 +12,8 @@ import iconMessanger from '../assets/static/icons/messager_icon.svg'
 import '../assets/styles/header.css';
 
 const Header = () => {
-  // const [currentUser, setCurrentUser] = useState(null);
-  // const { logout, user } = useUser()
   const isAuthenticated = getToken()
   const { logout, user: currentUser } = useContext(UserContext)
-
-  // useEffect(() => {
-  //   getUser(getCurrentUser()).then(dataUser => {
-  //     setCurrentUser(dataUser)
-  //   })
-  // }, [])
 
   return (
     <header className="container-header">
@@ -36,7 +28,7 @@ const Header = () => {
       {isAuthenticated
         ?
         <nav className="nav-items">
-          <Link to={`${process.env.PUBLIC_URL}/messenger/${currentUser?.username}`} className="nav-item"> <img className="icon-header" src={iconMessanger} alt="" /></Link>
+          {/* <Link to={`${process.env.PUBLIC_URL}/messenger/${currentUser?.username}`} className="nav-item"> <img className="icon-header" src={iconMessanger} alt="" /></Link> */}
           <Link to={`${process.env.PUBLIC_URL}/add-project`}><img className="icon-header" src={iconAddProject} alt="" /></Link>
           <Link to={"/"} onClick={logout}><img className="icon-header" src={iconExit} alt="" /></Link>
           <Link to={`${process.env.PUBLIC_URL}/user/${currentUser?.username}`}>

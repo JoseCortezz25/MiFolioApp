@@ -102,13 +102,14 @@
 }
 
 .btn-edit-user {
-  border: 1px solid var(--color-border-gray);
-  padding: 7px 12px;
+  padding: .5rem 1.3rem;
   color: var(--color-text-fullname);
   text-decoration: none;
   font-weight: 500;
   margin-left: 15px;
+  font-size: 1.6rem;
   border-radius: 5px;
+  border: 1px solid var(--color-border-gray);
   transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 

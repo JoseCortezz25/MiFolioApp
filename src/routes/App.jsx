@@ -15,6 +15,7 @@ import FormUpdateUser from '../components/FormUpdateUser'
 import PageNotFound from '../components/PageNotFound'
 import ProtectedRoute from '../components/ProtectedRoute'
 import Messenger from '../components/Messenger'
+import Testing from '../components/Testing'
 
 const Route = ({ component: Component, layout: Layout, ...rest }) => {
   return (
@@ -44,7 +45,7 @@ const App = () => {
         <Route path={"/project/:url"} component={SingleProject} layout={MainLayouts} />
 
         {/* <ProtectedRoute path={"/messenger/:socket/:room/:username"}  component={Messenger} layout={EmptyLayouts} /> */}
-        <ProtectedRoute path={"/messenger/:username"}  component={Messenger} layout={EmptyDarkLayouts} />
+        <ProtectedRoute path={"/messenger/:username"}  component={Testing} layout={EmptyDarkLayouts} />
 
         <Route component={PageNotFound} layout={EmptyLayouts} />
       </Switch>

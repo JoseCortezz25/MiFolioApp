@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom'
 import Trix from 'trix'
 import { useParams } from 'react-router'
 import { ReactTrixRTEInput } from 'react-trix-rte'
-import { arrayOfSkills } from '../utils/helpers'
 import MessageError from './MessageError'
 import { updateProject, getProjectByUrl } from '../services/project'
 import { TagsInput } from './TagsInput'
@@ -45,6 +44,8 @@ const FormUpdateProject = () => {
       }
     }, true);
   }, [url])
+
+console.log( typeof description)
 
   const handleImage = (e) => {
     console.log('e')
@@ -105,8 +106,9 @@ const FormUpdateProject = () => {
 
           <label htmlFor="description">Description of the project</label>
           <ReactTrixRTEInput
+            value={description}
             name="description"
-            defaultValue={description}
+            // defaultValue={description}
             onChange={({ target }) => setDescription(target.value)}
           />
 

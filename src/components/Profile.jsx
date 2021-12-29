@@ -9,7 +9,6 @@ import { Loading } from './Loading'
 import { getToken, validateUser, getCurrentUser } from '../utils/helpers'
 import { Link } from 'react-router-dom'
 import iconSendMessenge from '../assets/static/icons/send-icon.svg'
-import io from 'socket.io-client'
 import UserContext from '../context/UserContext'
 import { followUser, verifyUserToFollow } from '../services/user'
 
@@ -18,41 +17,54 @@ import '../assets/styles/Profile.css'
 const Profile = () => {
   const [userProfile, setUserProfile] = useState(null)
   const [isFollowingToUser, setIsFollowingToUser] = useState(false)
+  const [stateFollow, setStateFollow] = useState({
+    countFollowers: 0,
+    countFollowing: 0
+  })
+
   const isAuthenticated = getToken()
   const { user } = useContext(UserContext)
   let { username } = useParams()
-  const [room, setRoom] = useState('')
-
-
-  useEffect(() => {
-    getUserByUsername(username).then(dataUser => {
-      setUserProfile(dataUser)
-    })
-    verifyUserToFollow(user?._id, userProfile?._id)
-      .then(data => {
-        console.log(data);
-        if (data.statusText === 'OK' && data.status === 200) {
-          setIsFollowingToUser(true)
-        } else {
-          setIsFollowingToUser(false)
-        }
-      })
-  }, [user?._id, userProfile?._id, username, isFollowingToUser])
-
-
-  const joinRoom = () => {
-    const socket = io('http://localhost:5001')
-    console.log('room name:', room)
-    socket.emit('join_room', room)
-  }
 
   const handleFollowToUser = (id_sender, id_receiver) => {
     followUser(id_sender, id_receiver, isFollowingToUser).then(data => {
-      if (data.statusText === 'OK' && data.status === 200) {
+      const message = data.data.body.message
+      const userToFollow = data.data.body.user
+      setStateFollow({ 
+        ...stateFollow,
+        countFollowers: userToFollow.followers.length, 
+        countFollowing: userToFollow.following.length
+      })
+      if (data.statusText === 'OK' && data.status === 200 && message === 'follow') {
         setIsFollowingToUser(true)
+      } else if (data.statusText === 'OK' && data.status === 200 && message === 'unfollow') {
+        setIsFollowingToUser(false)
       }
     })
   }
+
+  useEffect(() => {
+    getUserByUsername(username)
+      .then(dataUser => {
+        setUserProfile(dataUser)
+        setStateFollow({ 
+          ...stateFollow,
+          countFollowers: dataUser.followers.length, 
+          countFollowing: dataUser.following.length
+        })
+      })
+  }, [username])
+
+  useEffect(() => {
+    const verifyIfUserToFollow = (sender, idReceiver) => {
+      const userFollowed = sender?.following.find(user => user.toString() === idReceiver)
+      userFollowed ? setIsFollowingToUser(true) : setIsFollowingToUser(false)
+    }
+
+    verifyIfUserToFollow(user, userProfile?._id)
+  }, [user, userProfile])
+
+  //userProfile?._id, isFollowingToUser
 
   return userProfile ? (
     <section className="container-profile">
@@ -66,7 +78,7 @@ const Profile = () => {
         <div className="profile-info">
           <div className="box-fullname">
             <h1 className="profile-name">{userProfile?.fullname}</h1>
-            {isAuthenticated && validateUser(userProfile._id, getCurrentUser())
+            {isAuthenticated && validateUser(userProfile?._id, getCurrentUser())
               ? <Link to={`${process.env.PUBLIC_URL}/update-user/${userProfile?.username}`} className="btn-edit-user">Edit user</Link>
               : <button
                 onClick={() => handleFollowToUser(user._id, userProfile._id)}
@@ -77,27 +89,26 @@ const Profile = () => {
             }
           </div>
           <p className="profile-profession">{userProfile?.profession}</p>
-          <p className="profile-description">{userProfile?.description}</p>
-          <p><strong>Following: {userProfile?.following?.length}</strong></p>
-          <p><strong>Followers: {userProfile?.followers?.length}</strong></p>
+          <div className="info-details">
+            <p><strong>{userProfile?.projects.length}</strong> Projects</p>
+            <p><strong>{stateFollow.countFollowing || 0}</strong> Following</p>
+            <p><strong>{stateFollow.countFollowers || 0}</strong> Followers</p>
+          </div>
 
-          <Link onClick={joinRoom} to="#" className="btn-message">
+          <p className="profile-description">{userProfile?.description}</p>
+
+          {/* <Link onClick={joinRoom} to="#" className="btn-message">
             <img src={iconSendMessenge} alt="" />
             <span>Message</span>
-          </Link>
-
-          {/* { isAuthenticated && validateUser(userProfile._id, getCurrentUser()) ? <Link to={`${process.env.PUBLIC_URL}/add-project/`} className="btn-standard btn-add">Add new project</Link> : null} */}
+          </Link> */}
         </div>
       </div>
       <div className="section-profile-info">
-
-
-
         <div className="feed-projects-profile">
           <div className="box-title-projects">
             <span className="icon-feed"><img src={iconFeed} alt="icon" /></span><p>Projects</p>
           </div>
-          {userProfile.projects.length > 0
+          {userProfile?.projects.length > 0
             ?
             < ResponsiveMasonry >
               <Masonry gutter="3rem">
@@ -108,7 +119,7 @@ const Profile = () => {
             </ResponsiveMasonry>
             : <div className="section-not-resources">
               <p>😕 No project added yet</p>
-              {isAuthenticated && validateUser(userProfile._id, getCurrentUser()) ? <Link to={`${process.env.PUBLIC_URL}/add-project/`} className="btn-standard btn-add">Add your first project</Link> : null}
+              {isAuthenticated && validateUser(userProfile?._id, getCurrentUser()) ? <Link to={`${process.env.PUBLIC_URL}/add-project/`} className="btn-standard btn-add">Add your first project</Link> : null}
             </div>
           }
         </div>

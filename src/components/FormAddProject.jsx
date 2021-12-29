@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Trix from 'trix'
 import { ReactTrixRTEInput } from 'react-trix-rte'
-import { arrayOfSkills } from '../utils/helpers'
 import { createNewProject } from '../services/project'
 import { getToken } from '../utils/helpers'
 import MessageError from './MessageError'
@@ -83,9 +82,9 @@ const FormAddProject = () => {
           </input>
 
           <label htmlFor="description">Description of the project</label>
-          <ReactTrixRTEInput 
-            name="description" 
-            onChange={({ target }) => setDescription(target.value)} 
+          <ReactTrixRTEInput
+            name="description"
+            onChange={({ target }) => setDescription(target.value)}
           />
 
           <label htmlFor="">Write the technologies used to build your project</label>

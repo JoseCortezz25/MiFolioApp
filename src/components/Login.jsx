@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { login, isVerifyUser } from '../services/user'
-import '../assets/styles/Login.css'
-import '../assets/styles/BarError.css'
 import { setToken, setCurrentUser } from '../utils/helpers'
 import MessageError from './MessageError'
+import '../assets/styles/Login.css'
+import '../assets/styles/BarError.css'
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('')
