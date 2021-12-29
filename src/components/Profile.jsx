@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import iconSendMessenge from '../assets/static/icons/send-icon.svg'
 import UserContext from '../context/UserContext'
 import { followUser, verifyUserToFollow } from '../services/user'
+import iconNotFound from '../assets/static/images/not_found.svg'
 
 import '../assets/styles/Profile.css'
 
@@ -21,7 +22,6 @@ const Profile = () => {
     countFollowers: 0,
     countFollowing: 0
   })
-
   const isAuthenticated = getToken()
   const { user } = useContext(UserContext)
   let { username } = useParams()
@@ -30,9 +30,9 @@ const Profile = () => {
     followUser(id_sender, id_receiver, isFollowingToUser).then(data => {
       const message = data.data.body.message
       const userToFollow = data.data.body.user
-      setStateFollow({ 
+      setStateFollow({
         ...stateFollow,
-        countFollowers: userToFollow.followers.length, 
+        countFollowers: userToFollow.followers.length,
         countFollowing: userToFollow.following.length
       })
       if (data.statusText === 'OK' && data.status === 200 && message === 'follow') {
@@ -43,13 +43,15 @@ const Profile = () => {
     })
   }
 
+  const goLoginPage = () => window.location.href = '/login'
+
   useEffect(() => {
     getUserByUsername(username)
       .then(dataUser => {
         setUserProfile(dataUser)
-        setStateFollow({ 
+        setStateFollow({
           ...stateFollow,
-          countFollowers: dataUser.followers.length, 
+          countFollowers: dataUser.followers.length,
           countFollowing: dataUser.following.length
         })
       })
@@ -80,12 +82,22 @@ const Profile = () => {
             <h1 className="profile-name">{userProfile?.fullname}</h1>
             {isAuthenticated && validateUser(userProfile?._id, getCurrentUser())
               ? <Link to={`${process.env.PUBLIC_URL}/update-user/${userProfile?.username}`} className="btn-edit-user">Edit user</Link>
-              : <button
-                onClick={() => handleFollowToUser(user._id, userProfile._id)}
-                className={isFollowingToUser ? 'btn-normal-standard  btn-following none-style-btn' : 'btn-normal-standard none-style-btn btn-follow'}
-              >
-                {isFollowingToUser ? 'Following' : 'Follow'}
-              </button>
+              :
+              isAuthenticated ? (
+                <button
+                  onClick={() => handleFollowToUser(user._id, userProfile._id)}
+                  className={isFollowingToUser ? 'btn-normal-standard  btn-following none-style-btn' : 'btn-normal-standard none-style-btn btn-follow'}
+                >
+                  {isFollowingToUser ? 'Following' : 'Follow'}
+                </button>
+              ) : (
+                <button
+                  onClick={goLoginPage}
+                  className={isFollowingToUser ? 'btn-normal-standard  btn-following none-style-btn' : 'btn-normal-standard none-style-btn btn-follow'}
+                >
+                  {isFollowingToUser ? 'Following' : 'Follow'}
+                </button>
+              )
             }
           </div>
           <p className="profile-profession">{userProfile?.profession}</p>
@@ -117,10 +129,23 @@ const Profile = () => {
                 ))}
               </Masonry>
             </ResponsiveMasonry>
-            : <div className="section-not-resources">
-              <p>😕 No project added yet</p>
-              {isAuthenticated && validateUser(userProfile?._id, getCurrentUser()) ? <Link to={`${process.env.PUBLIC_URL}/add-project/`} className="btn-standard btn-add">Add your first project</Link> : null}
+            :
+            <div className="feed-projects-empty">
+              <div className="feed-projects-image">
+                <img src={iconNotFound} alt="Not found projects" />
+              </div>
+              <h2>No project added yet</h2>
+              {isAuthenticated && validateUser(userProfile?._id, getCurrentUser()) ? 
+                <Link 
+                  to={`${process.env.PUBLIC_URL}/add-project/`} 
+                  className="btn-standard btn-add">
+                    Add your first project
+                </Link> : null
+              }
             </div>
+            // <div className="section-not-resources">
+            //   <p>😕 No project added yet</p>
+            // </div>
           }
         </div>
       </div>

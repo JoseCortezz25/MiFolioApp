@@ -3,20 +3,23 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 import CoverImage from './CoverImage'
 import CardProject from './CardProject'
 import { Loading } from './Loading'
-import { getAllProjects, getProjectById } from '../services/project'
+import { getAllProjects } from '../services/project'
+import iconNotFound from '../assets/static/images/not_found.svg'
 import UserContext from '../context/UserContext'
 import '../assets/styles/Feed.css'
 
 const Feed = () => {
   const [projects, setProjects] = useState([])
   const [searchText, setSearchText] = useState('')
-  const [searchTextFollowing, setSearchTextFollowing] = useState('')
+  // const [searchTextFollowing, setSearchTextFollowing] = useState('')
   const [followingProjects, setFollowingProjects] = useState([])
   const [statusMenu, setStatusMenu] = useState({
     isAllProjects: true,
     isFollowingProjects: false,
   })
   const { user } = useContext(UserContext)
+
+  console.log(followingProjects);
 
   useEffect(() => {
     const getProjectsFollowing = async () => {
@@ -48,8 +51,9 @@ const Feed = () => {
   })
 
   const followingProjectsSearch = followingProjects.filter(project => {
-    return project.name.toLowerCase().includes(searchTextFollowing.toLowerCase())
+    return project.name.toLowerCase().includes(searchText.toLowerCase())
   })
+
 
   if (statusMenu.isAllProjects) {
     return (
@@ -98,7 +102,7 @@ const Feed = () => {
         {user
           ? <CoverImage
             nameUser={user}
-            setSearchText={(text) => setSearchTextFollowing(text)}
+            setSearchText={(text) => setSearchText(text)}
           />
           : <Loading />
         }
@@ -118,18 +122,27 @@ const Feed = () => {
             })}
           >Following</button>
         </div>
-
-        <div className="feed-projects">
-          <ResponsiveMasonry>
-            <Masonry gutter="3rem">
-              {followingProjectsSearch.map(project => {
-                return (
-                  <CardProject key={project._id} project={project} />
-                )
-              })}
-            </Masonry>
-          </ResponsiveMasonry>
-        </div>
+        {followingProjects.length !== 0 ? (
+          <div className="feed-projects">
+            <ResponsiveMasonry>
+              <Masonry gutter="3rem">
+                {followingProjectsSearch.map(project => {
+                  return (
+                    <CardProject key={project._id} project={project} />
+                  )
+                })}
+              </Masonry>
+            </ResponsiveMasonry>
+          </div>
+        ) : (
+          <div className="feed-projects-empty">
+            <div className="feed-projects-image">
+              <img src={iconNotFound} alt="Not found projects" />
+            </div>
+            <h2>You don't follow any person yet,
+              follow people and watch their work</h2>
+          </div>
+        )}
       </section>
     )
   }

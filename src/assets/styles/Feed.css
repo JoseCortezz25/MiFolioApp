@@ -5,11 +5,35 @@
 
 .feed-projects {
   width: 100%;
-  /* display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem; */
   padding-top: 2.6rem;
   padding-bottom: 4rem;
+}
+
+.feed-projects-empty {
+  width: 100%;
+  margin: auto;
+  /* border: 1px solid red; */
+  padding-top: 2.6rem;
+  padding-bottom: 4rem;
+  text-align: center;
+}
+
+.feed-projects-empty h2 {
+  margin-bottom: 4rem;
+}
+
+.feed-projects-image {
+  width: 40%;
+  height: auto;
+  margin: auto;
+  margin-bottom: 3.7rem;
+  margin-top: 4px;
+  /* border: 1px solid red; */
+}
+
+.feed-projects-image img {
+  width: 100%;
+  height: auto;
 }
 
 .MenuTop {

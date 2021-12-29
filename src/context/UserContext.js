@@ -32,11 +32,22 @@ export function UserContextProvider(props) {
     deleteToken();
   }
 
+  const handleSetCurrentUser = async (idUser) => {
+    try {
+      console.log(idUser);
+      const data = await getUser(idUser);
+      setUser(data);
+    } catch (error) {
+      console.log('ERROR', error);
+    }
+  }
+
   const value = useMemo(() => {
     return {
       user,
       loadingUser,
-      logout
+      logout,
+      handleSetCurrentUser
     }
   }, [user, loadingUser])
 

@@ -4,9 +4,10 @@ import './assets/styles/global.css';
 import App from './routes/App';
 import reportWebVitals from './reportWebVitals';
 import { UserContextProvider } from './context/UserContext'
+import { getCurrentUser } from './utils/helpers'
 
 ReactDOM.render(
-  <UserContextProvider>
+  <UserContextProvider >
       <App />
   </UserContextProvider>,
   document.getElementById('root')

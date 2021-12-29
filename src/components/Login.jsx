@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { login, isVerifyUser } from '../services/user'
 import { setToken, setCurrentUser } from '../utils/helpers'
 import MessageError from './MessageError'
 import '../assets/styles/Login.css'
 import '../assets/styles/BarError.css'
+import UserContext from '../context/UserContext'
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const { handleSetCurrentUser } = useContext(UserContext)
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault()
@@ -27,7 +29,8 @@ const Login = ({ history }) => {
       login({ email, password })
         .then(res => {
           setToken(res.data.body.token);
-          setCurrentUser(res.data.body.id);
+          setCurrentUser(res.data.body.id)
+          handleSetCurrentUser(res.data.body.id)
           setEmail('')
           setPassword('')
           history.push(`${process.env.PUBLIC_URL}/feed`)
@@ -66,7 +69,8 @@ const Login = ({ history }) => {
               name="password"
               required
               onChange={({ target }) => setPassword(target.value)}
-              placeholder="Enter your password"></input>
+              placeholder="Enter your password"
+              autoComplete="on"></input>
 
             {error ? <MessageError error={errorMessage} /> : null}
             <a href={"/register"} className="link-redirect">Don't you have an account? Create it now</a>
