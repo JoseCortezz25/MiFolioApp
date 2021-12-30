@@ -34,7 +34,6 @@ export function UserContextProvider(props) {
 
   const handleSetCurrentUser = async (idUser) => {
     try {
-      console.log(idUser);
       const data = await getUser(idUser);
       setUser(data);
     } catch (error) {

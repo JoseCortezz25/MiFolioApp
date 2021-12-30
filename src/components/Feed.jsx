@@ -19,8 +19,6 @@ const Feed = () => {
   })
   const { user } = useContext(UserContext)
 
-  console.log(followingProjects);
-
   useEffect(() => {
     const getProjectsFollowing = async () => {
       try {
@@ -31,6 +29,7 @@ const Feed = () => {
             followingAllProjects = [...followingAllProjects, project]
           }
         })
+        console.log('followingAllProjects', followingAllProjects);
         setFollowingProjects(followingAllProjects)
       } catch (error) {
         console.log('ERROR INFO', error)

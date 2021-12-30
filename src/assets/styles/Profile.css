@@ -133,6 +133,10 @@
   /* border: 1px solid red; */
 }
 
+.box-edit-user-mobile {
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
   .container-profile .section-profile {
     width: 90%;
@@ -150,11 +154,46 @@
 }
 
 @media screen and (max-width: 445px) {
+  .box-edit-user-mobile {
+    display: block;
+    width: 100%;
+  }
+  .box-edit-user-mobile .btn-edit-user {
+    width: 100%;
+    display: block;
+    margin-left: 0px;
+    margin-top: 1.6rem;
+    text-align: center;
+  }
+  
+  .btn-edit-user-desk {
+    display: none;
+  }
+
   .profile-name {
     font-size: 2.1rem;
   }
+  
   .profile-profession, .profile-description {
     font-size: 1.5rem;
+  }
+
+  .section-profile:nth-of-type(1) {
+    /* border: 1px solid red; */
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-profile:nth-of-type(1) .profile-info {
+    /* border: 1px solid blue; */
+    width: 100%;
+    margin-left: 0px;
+  }
+
+  .profile-info .box-fullname, .profile-profession {
+    /* border: 1px solid yellowgreen; */
+    margin: auto;
   }
 } 
 

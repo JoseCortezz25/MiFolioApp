@@ -8,9 +8,9 @@ import imageUserDefault from '../assets/static/images/user-stock.png'
 import { Loading } from './Loading'
 import { getToken, validateUser, getCurrentUser } from '../utils/helpers'
 import { Link } from 'react-router-dom'
-import iconSendMessenge from '../assets/static/icons/send-icon.svg'
+// import iconSendMessenge from '../assets/static/icons/send-icon.svg'
 import UserContext from '../context/UserContext'
-import { followUser, verifyUserToFollow } from '../services/user'
+import { followUser } from '../services/user'
 import iconNotFound from '../assets/static/images/not_found.svg'
 
 import '../assets/styles/Profile.css'
@@ -81,7 +81,7 @@ const Profile = () => {
           <div className="box-fullname">
             <h1 className="profile-name">{userProfile?.fullname}</h1>
             {isAuthenticated && validateUser(userProfile?._id, getCurrentUser())
-              ? <Link to={`${process.env.PUBLIC_URL}/update-user/${userProfile?.username}`} className="btn-edit-user">Edit user</Link>
+              ? <Link to={`${process.env.PUBLIC_URL}/update-user/${userProfile?.username}`} className="btn-edit-user btn-edit-user-desk">Edit user</Link>
               :
               isAuthenticated ? (
                 <button
@@ -106,8 +106,16 @@ const Profile = () => {
             <p><strong>{stateFollow.countFollowing || 0}</strong> Following</p>
             <p><strong>{stateFollow.countFollowers || 0}</strong> Followers</p>
           </div>
-
           <p className="profile-description">{userProfile?.description}</p>
+          <div className="box-edit-user-mobile">
+            {isAuthenticated && validateUser(userProfile?._id, getCurrentUser())
+              ? <Link
+                to={`${process.env.PUBLIC_URL}/update-user/${userProfile?.username}`}
+                className="btn-edit-user">
+                Edit user
+              </Link>
+              : null}
+          </div>
 
           {/* <Link onClick={joinRoom} to="#" className="btn-message">
             <img src={iconSendMessenge} alt="" />
@@ -135,11 +143,11 @@ const Profile = () => {
                 <img src={iconNotFound} alt="Not found projects" />
               </div>
               <h2>No project added yet</h2>
-              {isAuthenticated && validateUser(userProfile?._id, getCurrentUser()) ? 
-                <Link 
-                  to={`${process.env.PUBLIC_URL}/add-project/`} 
+              {isAuthenticated && validateUser(userProfile?._id, getCurrentUser()) ?
+                <Link
+                  to={`${process.env.PUBLIC_URL}/add-project/`}
                   className="btn-standard btn-add">
-                    Add your first project
+                  Add your first project
                 </Link> : null
               }
             </div>
